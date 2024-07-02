@@ -1,0 +1,7 @@
+# below is the command to run  ansible in syntax check mode
+
+ansible-playbook -i inventory web-db.yml --syntax-check
+
+#below is the command to dry run  the ansible
+
+ansible-playbook -i inventory web-db.yml -C

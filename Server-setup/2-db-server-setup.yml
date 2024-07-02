@@ -1,0 +1,40 @@
+#this example shows we can use ansible community as well
+# you have to run below command first to use mysql comminuty module
+# ansible-galaxy collection install community.mysql
+---
+- name: DBserver setup
+  hosts:  dbservers
+  become: yes 
+  tasks:
+  - name: Install maria-db
+    ansible.bultin.yum:
+      name: mariadb-server
+      state:  present
+  - name: Install pymysql
+    ansible.builtin.yum:
+      name: python3-PyMySQL
+      state:  present
+  - name: Start mariadb service
+    ansible.builtin.service:
+      name: mariadb
+      state:  started
+      enabled:  yes
+  - name: Create  a new database with name 'accounts'
+    community.mysql.mysql_db:
+      name: accounts
+      state:  present
+      login_unix_socket: /var/lib/mysql/mysql.socket
+  - name: Create database user with name 'vprofile'
+    community.mysql.mysql_user:
+      name: vprofile
+      password: 12345
+      priv: '*.*:ALL'  #privileges granted
+      state: present
+
+
+#priv: '*.*:ALL'
+#*.*:
+#The first * refers to all databases.
+#The second * refers to all tables within those databases.
+#ALL:
+#This means all available privileges will be granted to the user.
