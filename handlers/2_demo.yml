@@ -1,0 +1,17 @@
+---
+- name: Example playbook with handlers
+  hosts: webservers
+  become: yes
+
+  vars:
+    config_file_path: /etc/myapp/myapp.conf
+
+  tasks:
+    - name: Ensure configuration file is present
+      copy:
+        src: myapp.conf
+        dest: "{{ config_file_path }}"
+      notify: Restart myapp service
+
+  handlers:
+    - include: handlers.yml
