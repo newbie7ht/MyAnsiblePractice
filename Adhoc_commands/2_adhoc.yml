@@ -1,1 +1,1 @@
-ansible web01 -m yum   -a "name=httpd  state=absent" -i inventory --become
+ansible web01 -m yum   -a "name=httpd  state=absent" -i inventory --become  

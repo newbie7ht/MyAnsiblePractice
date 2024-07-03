@@ -1,0 +1,1 @@
+ansible-plyabook -e USRNM=cliusr -e COMM=cliusr variables.yml
